@@ -20,6 +20,8 @@ from bgan_models import BDCGAN
 
 import time
 
+from pokemon import PokemonDataset
+
 
 def get_session():
     if tf.get_default_session() is None:
@@ -311,7 +313,7 @@ if __name__ == "__main__":
     parser.add_argument('--dataset',
                         type=str,
                         default="mnist",
-                        help='datasate name mnist etc.')
+                        help='datasate name mnist pokemon etc.')
 
     parser.add_argument('--batch_size',
                         type=int,
@@ -420,6 +422,8 @@ if __name__ == "__main__":
         dataset = Cifar10(cifar_path)
     elif args.dataset == "svhn":
         dataset = SVHN(svhn_path)
+    elif args.dataset == "pokemon":
+        dataset = PokemonDataset(args.data_path)
     elif "imagenet" in args.dataset:
         num_classes = int(args.dataset.split("_")[-1])
         dataset = ImageNet(imagenet_path, num_classes)
