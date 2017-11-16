@@ -14,7 +14,10 @@ def normalize_img(X):
     return Xnorm
 
 class PokemonDataset():
-    
+    """
+    Pokemon dataset, 26436 images resized to 80x80
+    Download dataset: https://s3-us-west-2.amazonaws.com/twairball.datasets.pokemon/pokemon.tgz
+    """
     def __init__(self, path):
         self.path = path
         
@@ -44,4 +47,7 @@ class PokemonDataset():
         return self.get_batch(batch_size, self.train_files)
     
     def test_batch(self, batch_size):
-        return self.get_batch(batch_size, self.test_files_)
+        return self.get_batch(batch_size, self.test_files)
+
+    def get_test_set(self):
+        return self.test_batch(len(self.test_files))
