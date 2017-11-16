@@ -206,7 +206,7 @@ def b_dcgan(dataset, args):
             _, d_loss = session.run([optimizer_dict["adv_d"], dcgan.d_loss], feed_dict={dcgan.inputs: image_batch,
                                                                                         dcgan.z: batch_z,
                                                                                         dcgan.d_learning_rate: learning_rate})
-
+        print "[%d] d_loss: %.2f" % (train_iter, d_loss)
 
         if args.wasserstein:
             session.run(dcgan.clip_d, feed_dict={})
@@ -220,6 +220,7 @@ def b_dcgan(dataset, args):
                 _, g_loss = session.run([optimizer_dict["gen"][gi*dcgan.num_mcmc+m], dcgan.generation["g_losses"][gi*dcgan.num_mcmc+m]],
                                         feed_dict={dcgan.z: batch_z, dcgan.g_learning_rate: learning_rate})
                 g_losses.append(g_loss)
+                print "[%d] %d, g_loss: %.2f" % (train_iter, m, g_loss)
 
         if train_iter > 0 and train_iter % args.n_save == 0:
 
